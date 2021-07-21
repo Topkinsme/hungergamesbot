@@ -25,11 +25,14 @@ class Player:
 
 class Arena:
 
-  def __init__(self,server_id):
+  def __init__(self,server_id,channel_id):
     self.server_id=str(server_id)
+    self.channel_id=str(channel_id)
     self.players=[]
     self.areas=[]
     self.rounds=0
+    #gamestate 0=signups, 1=chars, 2=events, 3=day, 4=fights,5=end
+    self.gamestate=0
 
   def add_player(self,player:Player):
     self.players.append(player)
