@@ -11,6 +11,7 @@ class Player:
     self.inventory=[]
     self.energy=0
     self.player_id=str(player_id)
+    self.ready=0
 
   def add_to_inventory(self,item):
     item=item.replace(" ","-").lower()
@@ -23,6 +24,33 @@ class Player:
     else:
       raise Exception("Item not in inventory.")
 
+
+class Area:
+
+  def __init__(self,loot=[]):
+    self.loot=list(loot)
+    self.players=[]
+
+  def add_player(self,player:Player):
+    self.players.append(player)
+
+  def remove_player(self,player:Player):
+    if player in self.players:
+      self.players.remove(player)
+    else:
+      raise Exception("Player not in list.")
+
+  def add_loot_item(self,item):
+    item=item.replace(" ","-").lower()
+    self.loot.append(item)
+
+  def remove_loot_item(self,item):
+    item=item.replace(" ","-").lower()
+    if item in self.loot:
+      self.loot.remove(item)
+    else:
+      raise Exception("Item not in inventory.")
+
 class Arena:
 
   def __init__(self,server_id,channel_id):
@@ -31,6 +59,8 @@ class Arena:
     self.players=[]
     self.areas=[]
     self.rounds=0
+    self.timeout_ticks=0
+    self.phase_done=False
     #gamestate 0=signups, 1=chars, 2=events, 3=day, 4=fights,5=end
     self.gamestate=0
 
@@ -43,10 +73,10 @@ class Arena:
     else:
       raise Exception("Player not in list.")
 
-  def add_area(self,area):
+  def add_area(self,area:Area):
     self.areas.append(area)
 
-  def remove_area(self,area):
+  def remove_area(self,area:Area):
     if area in self.areas:
       self.players.remove(area)
     else:

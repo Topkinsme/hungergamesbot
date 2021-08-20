@@ -14,6 +14,7 @@ import datetime
 from datetime import date,timedelta
 import keep_alive
 import inspect
+from cogs.assets import assets
 #from cogs.assets import assets
 #import assets
 #from arena import Arena
@@ -27,11 +28,6 @@ intents.presences = True
 
 bot = commands.Bot(command_prefix = ";",intents=intents)
 logging.basicConfig(level=logging.INFO)
-
-@bot.event
-async def on_ready():
-    print("Working boi!")
-    bot._arenas={}
 
 
 if __name__=="__main__":
